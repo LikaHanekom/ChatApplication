@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="retro_bg">#F4E9D8</color>
+    <color name="retro_navy">#2B3A55</color>
+    <color name="retro_teal">#3F8C8C</color>
+    <color name="retro_cream">#FFF8E7</color>
+    <color name="retro_border">#8B5E3C</color>
+    <color name="retro_text">#2B2B2B</color>
 </resources>
