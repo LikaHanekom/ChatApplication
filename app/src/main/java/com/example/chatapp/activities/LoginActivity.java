@@ -40,7 +40,9 @@ public class LoginActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         if (user != null && user.getPassword().equals(password)) {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.putExtra("userId", user.getId());
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Your Login Details are wrong, please retry", Toast.LENGTH_SHORT).show();
                         }

@@ -43,6 +43,8 @@ public class ConversationActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<Message> messageList = new ArrayList<>();
     private MessageDao messageDao;
+    private int currentUserId;
+    private int receiverId;
 
     private final ActivityResultLauncher<String> requestCameraPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -56,20 +58,22 @@ public class ConversationActivity extends AppCompatActivity {
     private final ActivityResultLauncher<Uri> takePictureLauncher =
             registerForActivityResult(new ActivityResultContracts.TakePicture(), success -> {
                 if (success) {
-                    // photoUri now points to the saved image
+                    Toast.makeText(this, "Photo attached — tap Send to share it", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Photo capture cancelled", Toast.LENGTH_SHORT).show();
+                    photoUri = null;
                 }
             });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversation);   // load my XML layout onto the screen
+        setContentView(R.layout.activity_conversation);// load my XML layout onto the screen
         messageDao = ChatDatabaseHelper.getInstance(this).messageDao();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        currentUserId = getIntent().getIntExtra("userId", -1);
+        receiverId = getIntent().getIntExtra("receiverId", -1);
         messageAdapter = new MessageAdapter(messageList);
         recyclerView.setAdapter(messageAdapter);
 
@@ -87,18 +91,30 @@ public class ConversationActivity extends AppCompatActivity {
                 if(message.isEmpty()){
                     Toast.makeText(ConversationActivity.this, "Your message is empty, please type a message before sending", Toast.LENGTH_SHORT).show();
                 } else {
-                    new Thread(() -> {
+                    if (currentUserId == -1) {
+                        Toast.makeText(ConversationActivity.this, "Error: user not identified", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (receiverId == -1) {
+                        Toast.makeText(ConversationActivity.this, "No conversation partner selected", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                        new Thread(() -> {
                         Message newMessage = new Message();
                         newMessage.setContent(message);
-                        newMessage.setSenderId(1);
-                        newMessage.setReceiverId(2);
+                        newMessage.setSenderId(currentUserId);
+                        newMessage.setReceiverId(receiverId);
                         newMessage.setTimestamp(System.currentTimeMillis());
+                        if (photoUri != null) {
+                            newMessage.setImageUri(photoUri.toString());
+                        }
                         messageDao.insertMessage(newMessage);
 
                         runOnUiThread(() -> {
                             messageEditText.setText("");
                             messageList.add(newMessage);
                             messageAdapter.notifyDataSetChanged();
+                            photoUri = null;
                         });
                     }).start();
                 }
@@ -141,7 +157,7 @@ public class ConversationActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Fetch from Room DAO
-                final List<Message> messages = messageDao.getAllMessages();
+                final List<Message> messages = messageDao.getMessagesBetween(currentUserId, receiverId);
 
                 // Update UI on the main thread
                 runOnUiThread(new Runnable() {

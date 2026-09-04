@@ -26,6 +26,8 @@
         android:hint="Username"
         android:fontFamily="monospace"
         android:background="@color/retro_cream"
+        android:textColor="@color/retro_text"
+        android:textColorHint="@color/retro_navy"
         android:padding="12dp"
         android:layout_marginBottom="8dp" />
 
@@ -37,6 +39,8 @@
         android:inputType="textPassword"
         android:fontFamily="monospace"
         android:background="@color/retro_cream"
+        android:textColor="@color/retro_text"
+        android:textColorHint="@color/retro_navy"
         android:padding="12dp"
         android:layout_marginBottom="8dp" />
 
@@ -48,6 +52,8 @@
         android:inputType="textPassword"
         android:fontFamily="monospace"
         android:background="@color/retro_cream"
+        android:textColor="@color/retro_text"
+        android:textColorHint="@color/retro_navy"
         android:padding="12dp"
         android:layout_marginBottom="16dp" />
 

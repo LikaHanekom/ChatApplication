@@ -10,12 +10,12 @@ import androidx.room.PrimaryKey;
 @Entity(
         tableName = "message",
         foreignKeys = {
-            @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "sender_id"),
-            @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "receiver_id")
+                @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "senderId"),
+                @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "receiverId")
         },
         indices = {
-            @Index("sender_id"),
-            @Index("receiver_id")
+                @Index("senderId"),
+                @Index("receiverId")
         }
 )
 public class Message {
@@ -24,6 +24,7 @@ public class Message {
     @ColumnInfo(name = "receiverId") private int receiverId;
     @ColumnInfo(name = "content") private String content;
     @ColumnInfo(name = "timestamp") private long timestamp;
+    @ColumnInfo(name = "imageUri") private String imageUri;
 
 
         public Message(){
@@ -71,5 +72,13 @@ public class Message {
             this.timestamp = timestamp;
         }
 
-}
+        public String getImageUri(){
+            return imageUri;
+        }
+
+        public void setImageUri(String imageUri){
+            this.imageUri = imageUri;
+        }
+
+    }
 

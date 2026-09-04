@@ -7,7 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {User.class, Message.class}, version = 1)
+@Database(entities = {User.class, Message.class}, version = 2)
 
 public abstract class ChatDatabaseHelper extends RoomDatabase{
     private static final String DB_NAME = "chat_database";
@@ -17,7 +17,7 @@ public abstract class ChatDatabaseHelper extends RoomDatabase{
 
     public static synchronized ChatDatabaseHelper getInstance(Context context) {
         if(instance == null){
-            instance = Room.databaseBuilder(context.getApplicationContext(), ChatDatabaseHelper.class, DB_NAME).build();
+            instance = Room.databaseBuilder(context.getApplicationContext(), ChatDatabaseHelper.class, DB_NAME).fallbackToDestructiveMigration().build();
         }
         return instance;
     }

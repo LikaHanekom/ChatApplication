@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/partner_username_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="14dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/bg_message_bubble"
+    android:textColor="@color/retro_text"
+    android:fontFamily="monospace"
+    android:textSize="16sp" />
