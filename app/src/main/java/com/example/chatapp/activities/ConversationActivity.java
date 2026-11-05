@@ -68,7 +68,7 @@ public class ConversationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversation);// load my XML layout onto the screen
+        setContentView(R.layout.activity_conversation);// load XML layout onto the screen
         messageDao = ChatDatabaseHelper.getInstance(this).messageDao();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
