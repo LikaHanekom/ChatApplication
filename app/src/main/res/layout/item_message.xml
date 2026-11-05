@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_message_bubble"
+    android:padding="10dp"
+    android:layout_margin="6dp">
+
+    <TextView
+        android:id="@+id/sender_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:textColor="@color/retro_navy"
+        android:fontFamily="monospace" />
+
+    <TextView
+        android:id="@+id/message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:fontFamily="monospace"
+        android:layout_marginTop="2dp" />
+
+    <ImageView
+        android:id="@+id/message_image"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="6dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:contentDescription="Attached photo" />
+
+    <TextView
+        android:id="@+id/timestamp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:textColor="@color/retro_teal"
+        android:fontFamily="monospace"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="end" />
+
+</LinearLayout>
